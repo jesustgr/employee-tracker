@@ -187,8 +187,13 @@ async function init() {
                 console.log(error);
             }
         }
+        else {
+            break;
+        }
     }
+    console.log('Goodbye!');
 }
+
 
 async function promptUser(){
     let answers = await inquirer.prompt([
