@@ -9,6 +9,8 @@ const db = mysql.createConnection({
     database: 'employees_db',
 });
 
+const queryAsync = promisify(db.query).bind(db);
+
 init();
 
 async function init() {
