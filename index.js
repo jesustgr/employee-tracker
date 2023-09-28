@@ -30,6 +30,32 @@ async function init() {
                 console.log(error);
             }
         }
+        else if (data.action === "view all employees") {
+            try {
+                const response = await queryAsync(`
+                    SELECT 
+                        emp.id AS employee_id,
+                        emp.first_name,
+                        emp.last_name,
+                        role.title AS job_title,
+                        department.name AS department,
+                        role.salary,
+                        CONCAT(manager.first_name, ' ', manager.last_name) AS manager_name
+                    FROM 
+                        employee emp
+                    LEFT JOIN 
+                        role ON emp.role_id = role.id
+                    LEFT JOIN 
+                        department ON role.department_id = department.id
+                    LEFT JOIN 
+                        employee manager ON emp.manager_id = manager.id;
+                `);
+                console.log('success!');
+                console.table(response);
+            } catch (error) {
+                console.log(error);
+            }
+        }
     }
 }
 
