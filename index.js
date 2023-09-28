@@ -12,7 +12,17 @@ const db = mysql.createConnection({
 init();
 
 async function init() {
-    
+    while (true) {
+        let data = await promptUser();
+        if (data.action === "view all departments") {
+            try {
+                const response = await queryAsync('SELECT * FROM department');
+                console.table(response);
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    }
 }
 
 async function promptUser(){
