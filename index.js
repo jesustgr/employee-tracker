@@ -56,6 +56,22 @@ async function init() {
                 console.log(error);
             }
         }
+        else if (data.action === "add a department") {
+            let answers = await inquirer.prompt([
+                {
+                    type: 'input',
+                    name: "departmentName",
+                    message: "What would you like to name the department?"
+                }
+            ]);
+            let department = answers.departmentName;
+            try {
+                const response = await queryAsync('INSERT INTO department(name) VALUES (?)', department);
+                console.log(`success! added ${department} to the database`);
+            } catch (error) {
+                console.log(error);
+            }
+        }
     }
 }
 
