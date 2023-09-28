@@ -16,7 +16,7 @@ init();
 async function init() {
     while (true) {
         let data = await promptUser();
-        if (data.action === "view all departments") {
+        if (data.action === "View all departments") {
             try {
                 const response = await queryAsync('SELECT * FROM department');
                 console.table(response);
@@ -24,7 +24,7 @@ async function init() {
                 console.log(error);
             }
         }
-        else if (data.action === "view all roles") {
+        else if (data.action === "View all roles") {
             try {
                 const response = await queryAsync('SELECT role.*, department.name AS department_name FROM role LEFT JOIN department ON role.department_id = department.id');
                 console.table(response);
@@ -32,7 +32,7 @@ async function init() {
                 console.log(error);
             }
         }
-        else if (data.action === "view all employees") {
+        else if (data.action === "View all employees") {
             try {
                 const response = await queryAsync(`
                     SELECT 
@@ -58,7 +58,7 @@ async function init() {
                 console.log(error);
             }
         }
-        else if (data.action === "add a department") {
+        else if (data.action === "Add a department") {
             let answers = await inquirer.prompt([
                 {
                     type: 'input',
@@ -74,7 +74,7 @@ async function init() {
                 console.log(error);
             }
         }
-        else if (data.action === "add a role") {
+        else if (data.action === "Add a role") {
             let allDepartments = await queryAsync('SELECT name FROM department');
             allDepartments = allDepartments.map(el => el.name);
 
@@ -112,7 +112,7 @@ async function init() {
                 console.log(error);
             }
         }
-        else if (data.action === "add an employee") {
+        else if (data.action === "Add an employee") {
             try {
                 let roleData = await queryAsync('SELECT id, title FROM role');
                 let roleChoices = roleData.map(role => role.title);
@@ -158,7 +158,7 @@ async function init() {
                 console.log(error);
             }
         }
-        else if (data.action === "update an employee role") {
+        else if (data.action === "Update an employee role") {
             try{
                 let employees = await queryAsync('SELECT first_name, last_name FROM employee');
                 employees = employees.map(emp => emp.first_name + " " + emp.last_name);
@@ -202,8 +202,8 @@ async function promptUser(){
             type: 'list',
             name: 'action',
             message: "Please choose an action.",
-            choices: ["view all departments", "view all roles", 
-            "view all employees", "add a department", "add a role", "add an employee", "update an employee role","quit"]
+            choices: ["View all departments", "View all roles", 
+            "View all employees", "Add a department", "Add a role", "Add an employee", "Update an employee role","Quit"]
         }
     ]);
     return answers;
