@@ -196,7 +196,6 @@ async function init() {
     console.log('Goodbye!');
 }
 
-
 async function promptUser(){
     let answers = await inquirer.prompt([
         {
