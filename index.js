@@ -22,6 +22,14 @@ async function init() {
                 console.log(error);
             }
         }
+        else if (data.action === "view all roles") {
+            try {
+                const response = await queryAsync('SELECT role.*, department.name AS department_name FROM role LEFT JOIN department ON role.department_id = department.id');
+                console.table(response);
+            } catch (error) {
+                console.log(error);
+            }
+        }
     }
 }
 
