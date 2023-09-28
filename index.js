@@ -9,6 +9,12 @@ const db = mysql.createConnection({
     database: 'employees_db',
 });
 
+init();
+
+async function init() {
+    
+}
+
 async function promptUser(){
     let answers = await inquirer.prompt([
         {
