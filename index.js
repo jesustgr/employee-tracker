@@ -72,6 +72,44 @@ async function init() {
                 console.log(error);
             }
         }
+        else if (data.action === "add a role") {
+            let allDepartments = await queryAsync('SELECT name FROM department');
+            allDepartments = allDepartments.map(el => el.name);
+
+            let answers = await inquirer.prompt([
+                {
+                    type: 'input',
+                    name: "roleName",
+                    message: "What would you like to name the role?"
+                },
+                {
+                    type: 'input',
+                    name: "salary",
+                    message: "What is the salary for this role?"
+                },
+                {
+                    type: 'list',
+                    name: "department",
+                    message: "Which department?",
+                    choices: allDepartments
+                }
+            ]);
+
+            let { roleName, salary, department } = answers;
+            let departmentResult = await queryAsync(`SELECT role.department_id FROM role
+                                                        JOIN department ON role.department_id = department.id 
+                                                        WHERE department.name = ?`, department);
+            
+            let department_id = departmentResult.length > 0 ? departmentResult[0].department_id : null;
+            let response =  await queryAsync(`INSERT INTO role(title, salary, department_id)
+                                                VALUES (?, ?, ?)`, [roleName, salary, department_id]);
+            try {
+                const response = await queryAsync
+                console.log('success!');
+            } catch (error) {
+                console.log(error);
+            }
+        }
     }
 }
 
